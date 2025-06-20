@@ -134,6 +134,7 @@ void BaseApp::handleLowerControl(cMessage* msg)
 
 void BaseApp::sendFrame(cPacket* msg, int destination)
 {
+    EV << "Entered Send Frame" << msg->getName() << " destination: " << destination << "\n";
     BaseFrame1609_4* frame = new BaseFrame1609_4();
     frame->setRecipientAddress(destination);
     frame->encapsulate(msg);

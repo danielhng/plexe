@@ -25,11 +25,16 @@ import org.car2x.cooperis.Ris;
 import org.car2x.cooperis.RisConnectionManager;
 import org.car2x.veins.visualizer.roads.RoadsCanvasVisualizer;
 
+import org.car2x.plexe.subprojects.plexe_cooperis.PlatoonCarRis;
+
+
 network TIntersection extends PlexeScenario
 {
     parameters:
         bool useBuildingShadowing;
         bool useRis = default(true);
+        bool MitM = default(false);
+        int numRises = default(MitM ? 2 : 1);
     submodules:
         obstacles: ObstacleControl if useBuildingShadowing {
             @display("p=240,50");
@@ -37,7 +42,7 @@ network TIntersection extends PlexeScenario
         obstaclesRis: ObstacleControl {
            @display("p=240,50");
         }
-        ris[1]: Ris if useRis {
+        ris[numRises]: Ris if useRis {
             @display("i=block/broadcast");
         }
         risConnectionManager: RisConnectionManager {
@@ -47,4 +52,8 @@ network TIntersection extends PlexeScenario
         roadsCanvasVisualizer: RoadsCanvasVisualizer {
             @display("p=300,0");
         }
+        // CarRis[1]: PlatoonCarRis if useMitM {
+        //  	@display("i=block/broadcast");
+        	
+        //} 
 }
