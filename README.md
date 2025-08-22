@@ -24,60 +24,60 @@ brew install gsl
 ## Veins
 
 CooperRIS works on a customized version of Veins. Clone it using this link and be sure to choose the cooperis branch:
-
+```
 git clone https://github.com/michele-segata/veins/tree/cooperis
 cd veins
 git checkout cooperis
-
+```
 Then simply compile Veins as usual:
-
+```
 ./configure
 make
-
+```
 ## CoopeRIS (Multithread support, default)
 
 CoopeRIS can be built with multithread or GPU support to accelerate the computation of the RIS. By default, CoopeRIS is built with multithread support. First, clone the repository:
-
+```
 git clone https://github.com/michele-segata/cooperis
 cd cooperis
-
+```
 To build it, please configure it indicating the path to the GSL include and lib folders. You can do so in the following way:
-
+```
 ./configure --with-gsl-include=/opt/local/include --with-gsl-lib=/opt/local/lib
-
+```
 Please make sure to change the GSL paths to match your owns.
 
 Finally, simply type
-
+```
 make
-
+```
 Plexe
 
 Evey simulation example is included within this branch of Plexe (starting from version 3.1.3). Clone it using this link and be sure to choose the plexe-cooperis-work branch:
-
+```
 git clone https://github.com/danielhng/plexe/
 cd plexe
 git checkout -b plexe-3.1.4-work plexe-3.1.4
-
+```
 Then simply compile Plexe as usual:
-
+```
 ./configure
 make
-
+```
 to build plexe.
 
 To start each scenario, proceed as following: 
-
+```
 cd plexe/subprojects/plexe_cooperis
 source setenv
 ./configure
 make
-
+```
 Then run each example with:
-
+```
 cd examples/plexe_cooperis
 plexe_cooperis_run -u Qtenv -c MaliciousRIS -r 0 
-
+```
 You can replace "MaliciousRIS" with every scenario defined in the omnetpp.ini file, i.e. 
 
 # MaliciousRIS
