@@ -83,37 +83,37 @@ plexe_cooperis_run -u Qtenv -c MaliciousRIS -r 0
 ```
 You can replace "MaliciousRIS" with every scenario defined in the omnetpp.ini file, i.e. 
 
-# MaliciousRIS
+### MaliciousRIS
 
 For a redirection scenario from the RIS, the RIS will direct the beam towards the first node until SimTime = 3. It will afterwards be considered as compromised by an external actor and redirect the signal towards the other node.
 
-# SideLobe
+### SideLobe
 
 This scenario tries to implement an attacker situated on the SideLobe of the signal. In this setting the attacker located before the reception node is on the path of the RIS and should be able to intercept a certain amount of the signal
 
-# Lawful Interception of traffic
+### Lawful Interception of traffic
 
 The last scenario represents a RIS being used for lawful interception of traffic, redirecting everything to a passive listener which would be a dataserver or a proxy for logging.
 
 
 
-## Maleability
+# Maleability
 
 Each scenario can be modified and adapted for further usage.
 
-# Adding a protocol:
+### Adding a protocol:
 
 If you wish to emulate a different protocol than the EDHOC protocol in the scenarios, you can add a .cc and a .h file extending BaseProtocol in the src/protocol folder. You then need to create a new .ned file for that protocol and you can finally set it in the omnetpp.ini file as an argument, i.e. ```*.node[0].protocol_type = "YourProtocolName"```
 
-# Adding a node:
+### Adding a node:
 
 Each node needs to be situated on a route in the sumo/veins framework. If you want to add a new route, you will need to do that through ```t-intersection.rou.xml```. You can then implement that route in the IntersectionTrafficManager.h and .cc to then add it as a new route in the .ini file. If you want to add a node on an existing or on a new route, you can add a car in the insertPlatoons function of IntersectionTrafficManager.
 
-# Adding a RIS:
+### Adding a RIS:
 
 You can specify the amount of RIS you want in the TIntersection.ned file, if you want a dynamic amount of RIS depending on the simulation, you can use a variable. You then have to define the position, nodes to track and nodes to reflect from and to in the omnetpp.ini file. 
 
-# Handling connections
+### Handling connections
 
 To modify connections between nodes, you have to modify the MitMRisConnectionManager.cc file and the MitMConnectionManager.cc file, in these you can follow the templates of other connection handling in the isInRange function to define wich nodes and RIS should be connected together. 
 
