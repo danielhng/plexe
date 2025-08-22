@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<analysis version="2">
+    <inputs>
+        <input pattern="/plexe/subprojects/plexe_cooperis/examples/plexe_cooperis/results/TrackingTIntersectionMitM_0_200_1_20.vec"/>
+        <input pattern="/plexe/subprojects/plexe_cooperis/examples/plexe_cooperis/results/TrackingTIntersectionMitM_0_200_1_20.sca"/>
+    </inputs>
+    <charts/>
+</analysis>

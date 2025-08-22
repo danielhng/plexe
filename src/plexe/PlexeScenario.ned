@@ -44,12 +44,14 @@ network PlexeScenario
         @display("bgb=$playgroundSizeX,$playgroundSizeY");
     submodules:
         annotations: AnnotationManager {
-            @display("p=260,50");
+            @display("p=260,150");
         }
-        connectionManager: ConnectionManager {
-            parameters:
-                @display("p=150,0;i=abstract/multicast");
-        }
+        //Connection Manager to use in classical CoopeRIS execution
+        
+        //connectionManager: ConnectionManager {
+        //    parameters:
+        //        @display("p=150,150;i=abstract/multicast");
+        //}
         world: BaseWorldUtility {
             parameters:
                 playgroundSizeX = veins_eval_by_version(veins_omnetpp_buildnum(), "playgroundSizeX", 1525, "parent.playgroundSizeX");
@@ -62,9 +64,9 @@ network PlexeScenario
                 @display("p=512,128");
         }
         plexe: PlexeManager {
-            @display("p=280,50");
+            @display("p=280,150");
         }
-        traffic: <traffic_type> like TraCIBaseTrafficManager {
+        traffic: <traffic_type> like TraCIBaseTrafficManager {	
             parameters:
                 @display("p=200,200");
         }

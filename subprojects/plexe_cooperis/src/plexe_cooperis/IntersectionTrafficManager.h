@@ -36,12 +36,19 @@ public:
 
         leftRightInitialPosition = 0;
         bottomRightInitialPosition = 0;
+        rightLeftInitialPosition = 0;
+        rightLeftInitialPositionSL = 0;
+
         routeLeftRight = "";
         routeBottomRight = "";
+        routeRightLeft = "";
 
         platoonInsertDistance = 0;
         platoonInsertHeadway = 0;
         platoonLeaderHeadway = 0;
+
+        threePlatoons = false;
+        SideLobePlatoon = false;
     }
     virtual ~IntersectionTrafficManager();
 
@@ -60,13 +67,20 @@ protected:
     // platoon speed
     double leftRightCarSpeed = 0;
     double bottomRightCarSpeed = 0;
+    double rightLeftCarSpeed = 0;
     // randomized initial position
     volatile double leftRightInitialPosition;
     volatile double bottomRightInitialPosition;
+    volatile double rightLeftInitialPosition;
+    volatile double rightLeftInitialPositionSL;
     // routes
     std::string routeLeftRight;
     std::string routeBottomRight;
+    std::string routeRightLeft;
 
+    //using three platoons or not
+    bool threePlatoons;
+    bool SideLobePlatoon;
     // insert distance
     double platoonInsertDistance;
     // insert headway

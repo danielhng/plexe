@@ -30,12 +30,15 @@ simple IntersectionTrafficManager extends BTraCIBaseTrafficManager {
         //platoon speed
         double leftRightCarSpeed @unit("mps");
         double bottomRightCarSpeed @unit("mps");
+        double rightLeftCarSpeed @unit("mps");
         //randomized initial position
         volatile double leftRightInitialPosition;
         volatile double bottomRightInitialPosition;
+        volatile double rightLeftInitialPosition;
         //routes
         string routeLeftRight;
         string routeBottomRight;
+        string routeRightLeft;
         //sumo vehicle type for platooning cars
         string platooningVType;
         //insert distance and headway. distance is computed as:
@@ -43,5 +46,8 @@ simple IntersectionTrafficManager extends BTraCIBaseTrafficManager {
         double platoonInsertDistance @unit("m") = default(5m);
         double platoonInsertHeadway @unit("s") = default(0s);
         double platoonLeaderHeadway @unit("s") = default(1.2s);
+        // three platoons
+        bool threePlatoons = default(false);
+        bool SideLobePlatoon = default(false);
         @class(plexe::IntersectionTrafficManager);
 }

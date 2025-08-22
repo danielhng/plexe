@@ -175,8 +175,14 @@ void BaseProtocol::sendPlatooningMessage(int destinationAddress, enum PlexeRadio
 
 void BaseProtocol::sendTo(BaseFrame1609_4* frame, enum PlexeRadioInterfaces interfaces)
 {
+    for (auto [key, gate] : radioOuts) {
+        EV << "Interface enum = " << key << ", gate name = " << gate->getFullName() << std::endl;
+    }
     for (auto interface : radioOuts) {
+        if (interface.first & 1)
+            continue;
         if (interface.first & interfaces) {
+            EV << "Interface enum = " << interface.first << ", gate name = " << interface.second->getFullName() << std::endl;
             BaseFrame1609_4* dup = frame->dup();
             if (frame->getControlInfo()) dup->setControlInfo(frame->getControlInfo()->dup());
             send(dup, interface.second);
@@ -321,6 +327,7 @@ void BaseProtocol::handleLowerMsg(cMessage* msg)
 
 void BaseProtocol::handleUpperMsg(cMessage* msg)
 {
+    EV << "[BaseProtocol] handleUpperMsg: " << msg->getName() << " kind: " << msg->getKind() << "Control info: " << msg->getControlInfo() << endl;
     PlexeInterfaceControlInfo* itf = dynamic_cast<PlexeInterfaceControlInfo*>(msg->getControlInfo());
     BaseFrame1609_4* frame = check_and_cast<BaseFrame1609_4*>(msg);
 

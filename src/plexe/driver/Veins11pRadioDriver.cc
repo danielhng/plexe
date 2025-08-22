@@ -42,8 +42,10 @@ void Veins11pRadioDriver::handleLowerMsg(cMessage* msg)
 
 void Veins11pRadioDriver::handleUpperMsg(cMessage* msg)
 {
+    EV << "Veins11pRadio Driver handleUpperMsg: " << msg->getName() << endl;
     BaseFrame1609_4* frame = check_and_cast<BaseFrame1609_4*>(msg);
     if (frame->getRecipientAddress() != veins::LAddress::L2BROADCAST()) frame->setRecipientAddress(VEH_ID_TO_MAC(frame->getRecipientAddress()));
+    frame->setName(msg->getName());
     sendDown(frame);
 }
 

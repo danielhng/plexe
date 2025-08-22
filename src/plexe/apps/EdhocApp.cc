@@ -14,7 +14,13 @@
 // 
 #include "EdhocApp.h"
 
+#include <iostream>
+
+
+#include "veins/modules/mac/ieee80211p/Mac1609_4.h"
+
 #include "plexe/apps/BaseApp.h"
+#include "plexe/messages/PlexeInterfaceControlInfo_m.h"
 #include "veins/modules/messages/BaseFrame1609_4_m.h"
 #include "veins/base/utils/FindModule.h"
 #include "plexe/protocols/BaseProtocol.h"
@@ -27,21 +33,23 @@ Define_Module(EdhocApp);
 
 
 void EdhocApp::initialize(int stage) {
-        BaseApp::initialize(stage);
-        if (stage == 1) {
-            myIndex = getParentModule()->getIndex();
-            EV << "[TEST]" << myIndex << endl;
-            edhocTimer = new cMessage("edhocTimer");
-            if (myIndex == 1) edhocState = 0; // initiator
-            else edhocState = 1; // responder
-            EV << "[TEST] EdhocApp initialized " << endl;
-            SimTime rounded = SimTime(5, SIMTIME_S);
-            scheduleAt(simTime() + rounded, edhocTimer);
-        }
+
+    BaseApp::initialize(stage);
+
+    if (stage == 1) {
+        myIndex = getParentModule()->getIndex();
+        EV << "[TEST]" << myIndex << endl;
+        edhocTimer = new cMessage("edhocTimer");
+        if (myIndex == 1) edhocState = 0; // initiator
+        else edhocState = 1; // responder
+        EV << "[TEST] EdhocApp initialized " << endl;
+        SimTime rounded = SimTime(2, SIMTIME_S);
+        scheduleAt(simTime() + rounded, edhocTimer);
+    }
 }
 
 void EdhocApp::handleSelfMsg(cMessage* msg) {
-    EV << "[EDHOC] Entered handleSelfMsg" << myIndex << endl;
+    EV << "[EDHOC] Entered handleSelfMsg" << myIndex << "Message: " << msg->getName() << endl;
     BaseApp::handleSelfMsg(msg);
     if (msg == edhocTimer) {
         switch (edhocState) {
@@ -49,7 +57,8 @@ void EdhocApp::handleSelfMsg(cMessage* msg) {
                 EV << "[TEST] Case 0 entered" << myIndex << endl;
                 sendEdhocMessage("EDHOC 1");
 
-                edhocState = 2;
+                //edhocState = 2;
+                scheduleAt(simTime() + SimTime(1, SIMTIME_S), edhocTimer);
                 break;
             case 3:
                 EV << "[TEST] Case 3 entered" << endl;
@@ -70,7 +79,6 @@ void EdhocApp::handleSelfMsg(cMessage* msg) {
     }
 
 void EdhocApp::handleLowerMsg(cMessage* msg) {
-    EV << "[TEST] Entered handleLowerMsg on" << myIndex << endl;
 
     BaseFrame1609_4* frame = check_and_cast<BaseFrame1609_4*>(msg);
     cPacket* payload = frame->decapsulate();
@@ -113,13 +121,20 @@ void EdhocApp::sendEdhocMessage(const std::string& content) {
     EdhocMessage* edhoc = new EdhocMessage("edhoc", content);
     edhoc->setByteLength(content.size());
     edhoc->setKind(BaseProtocol::BEACON_TYPE);
-    sendFrame(edhoc, LAddress::L2BROADCAST());  // inherited from BaseApplLayer
+
+    //auto wsm = make_unique<BaseFrame1609_4>("", BaseProtocol::BEACON_TYPE);
+    //wsm->setRecipientAddress(LAddress::L2BROADCAST());
+    //wsm->setChannelNumber(static_cast<int>(Channel::cch));
+    //wsm->setUserPriority(2);
+    //wsm->encapsulate(edhoc);
+
+    sendFrame(edhoc, -1);  // inherited from BaseApplLayer
 }
 
 EdhocApp::~EdhocApp() {
         cancelAndDelete(edhocTimer);
 }
 
-} // namespaec plexe
+} // namespace plexe
 
 // namespace plexe

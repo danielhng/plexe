@@ -24,6 +24,7 @@
 #include "veins/base/messages/MacPkt_m.h"
 #include "veins/modules/mac/ieee80211p/Mac1609_4.h"
 #include "veins/base/utils/FindModule.h"
+#include "plexe/messages/PlexeInterfaceControlInfo_m.h"
 
 #include "plexe/protocols/BaseProtocol.h"
 #include "plexe/PlexeManager.h"
@@ -33,6 +34,7 @@ using namespace veins;
 namespace plexe {
 
 Define_Module(BaseApp);
+
 
 void BaseApp::initialize(int stage)
 {
@@ -138,6 +140,12 @@ void BaseApp::sendFrame(cPacket* msg, int destination)
     BaseFrame1609_4* frame = new BaseFrame1609_4();
     frame->setRecipientAddress(destination);
     frame->encapsulate(msg);
+    frame->setChannelNumber(178);
+    frame->setUserPriority(2);
+    PlexeInterfaceControlInfo* ctrl = new PlexeInterfaceControlInfo();
+    ctrl->setInterfaces(PlexeRadioInterfaces::COOPERIS);
+    frame->setControlInfo(ctrl);
+    frame->setName("edhoc");
     sendDown(frame);
 }
 

@@ -43,7 +43,7 @@ void SimplePlatooningBeaconing::handleSelfMsg(cMessage* msg)
     BaseProtocol::handleSelfMsg(msg);
 
     if (msg == sendBeacon) {
-        sendPlatooningMessage(-1);
+        sendPlatooningMessage(-1, PlexeRadioInterfaces::COOPERIS);
         scheduleAt(simTime() + beaconingInterval, sendBeacon);
     }
 }

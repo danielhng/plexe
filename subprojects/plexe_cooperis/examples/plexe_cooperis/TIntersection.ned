@@ -25,7 +25,8 @@ import org.car2x.cooperis.Ris;
 import org.car2x.cooperis.RisConnectionManager;
 import org.car2x.veins.visualizer.roads.RoadsCanvasVisualizer;
 
-import org.car2x.plexe.subprojects.plexe_cooperis.PlatoonCarRis;
+import org.car2x.plexe.subprojects.plexe_cooperis.MitMConnectionManager;
+import org.car2x.plexe.subprojects.plexe_cooperis.MitMRisConnectionManager;
 
 
 network TIntersection extends PlexeScenario
@@ -45,15 +46,17 @@ network TIntersection extends PlexeScenario
         ris[numRises]: Ris if useRis {
             @display("i=block/broadcast");
         }
-        risConnectionManager: RisConnectionManager {
+        connectionManager: MitMConnectionManager {
+            parameters:
+                @display("p=150,150;i=abstract/multicast");
+        }
+        risConnectionManager: MitMRisConnectionManager {
             parameters:
                 @display("p=300,0;i=abstract/multicast");
         }
         roadsCanvasVisualizer: RoadsCanvasVisualizer {
             @display("p=300,0");
         }
-        // CarRis[1]: PlatoonCarRis if useMitM {
-        //  	@display("i=block/broadcast");
-        	
-        //} 
+       
+        
 }

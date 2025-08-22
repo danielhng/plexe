@@ -30,6 +30,7 @@ void IntersectionTrafficManager::initialize(int stage)
     TraCIBaseTrafficManager::initialize(stage);
 
     if (stage == 0) {
+        EV << "[Inter] Intialize stage 0" << endl;
 
         platoonInsertTime = SimTime(par("platoonInsertTime").doubleValue());
         platoonInsertDistance = par("platoonInsertDistance").doubleValue();
@@ -39,11 +40,18 @@ void IntersectionTrafficManager::initialize(int stage)
 
         leftRightCarSpeed = par("leftRightCarSpeed");
         bottomRightCarSpeed = par("bottomRightCarSpeed");
+        rightLeftCarSpeed = par("rightLeftCarSpeed");
+
         leftRightInitialPosition = par("leftRightInitialPosition");
         bottomRightInitialPosition = par("bottomRightInitialPosition");
+        rightLeftInitialPosition = par("rightLeftInitialPosition");
+
         routeLeftRight = par("routeLeftRight").stdstringValue();
         routeBottomRight = par("routeBottomRight").stdstringValue();
+        routeRightLeft = par("routeRightLeft").stdstringValue();
 
+        threePlatoons = par("threePlatoons").boolValue();
+        SideLobePlatoon = par("SideLobePlatoon").boolValue();
         insertPlatoonMessage = new cMessage("");
         scheduleAt(platoonInsertTime, insertPlatoonMessage);
     }
@@ -54,6 +62,7 @@ void IntersectionTrafficManager::scenarioLoaded()
     automated.id = findVehicleTypeIndex(platooningVType);
     automated.lane = -1;
     automated.position = 0;
+    EV << "[INTER] Scenario loaded" << endl;
 }
 
 void IntersectionTrafficManager::handleSelfMsg(cMessage* msg)
@@ -68,26 +77,31 @@ void IntersectionTrafficManager::handleSelfMsg(cMessage* msg)
 
 void IntersectionTrafficManager::insertPlatoons()
 {
-    automated.speed = leftRightCarSpeed;
 
     int id = 0;
     VehicleInfo vehicleInfo;
-    vehicleInfo.controller = ACC;
-    vehicleInfo.id = id;
-    vehicleInfo.position = 0;
-    vehicleInfo.platoonId = id;
-    vehicleInfo.distance = 2;
-    vehicleInfo.headway = platoonLeaderHeadway;
-
-    automated.position = leftRightInitialPosition;
-    automated.lane = 0;
-    automated.vehicleId = id;
-    addVehicleToQueue(routeLeftRight, automated);
-    positions.addVehicleToPlatoon(id, vehicleInfo);
     PlatoonInfo info;
-    info.speed = automated.speed;
-    info.lane = automated.lane;
-    positions.setPlatoonInformation(vehicleInfo.platoonId, info);
+    if (!SideLobePlatoon) {
+        EV << "[TrafficMng] SideLobePlatoon: " << SideLobePlatoon << endl;
+        automated.speed = leftRightCarSpeed;
+
+        vehicleInfo.controller = ACC;
+        vehicleInfo.id = id;
+        vehicleInfo.position = 0;
+        vehicleInfo.platoonId = id;
+        vehicleInfo.distance = 2;
+        vehicleInfo.headway = platoonLeaderHeadway;
+
+        automated.position = leftRightInitialPosition;
+        automated.lane = 0;
+        automated.vehicleId = id;
+        addVehicleToQueue(routeLeftRight, automated);
+        positions.addVehicleToPlatoon(id, vehicleInfo);
+
+        info.speed = automated.speed;
+        info.lane = automated.lane;
+        positions.setPlatoonInformation(vehicleInfo.platoonId, info);
+    }
 
 
     automated.speed = bottomRightCarSpeed;
@@ -109,6 +123,45 @@ void IntersectionTrafficManager::insertPlatoons()
     info.lane = automated.lane;
     positions.setPlatoonInformation(vehicleInfo.platoonId, info);
 
+    if (threePlatoons || SideLobePlatoon) {
+
+        id = 2;
+        vehicleInfo.controller = ACC;
+        vehicleInfo.id = id;
+        vehicleInfo.position = 0;
+        vehicleInfo.platoonId = id;
+        vehicleInfo.distance = 2;
+        vehicleInfo.headway = platoonLeaderHeadway;
+
+        automated.position = rightLeftInitialPosition;
+        automated.lane = 0;
+        automated.vehicleId = id;
+        addVehicleToQueue(routeRightLeft, automated);
+        positions.addVehicleToPlatoon(id, vehicleInfo);
+        info.speed = automated.speed;
+        info.lane = automated.lane;
+        positions.setPlatoonInformation(vehicleInfo.platoonId, info);
+    }
+
+    if (SideLobePlatoon) {
+
+            id = 3;
+            vehicleInfo.controller = ACC;
+            vehicleInfo.id = id;
+            vehicleInfo.position = 0;
+            vehicleInfo.platoonId = id;
+            vehicleInfo.distance = 2;
+            vehicleInfo.headway = platoonLeaderHeadway;
+
+            automated.position = rightLeftInitialPositionSL;
+            automated.lane = 0;
+            automated.vehicleId = id;
+            addVehicleToQueue(routeRightLeft, automated);
+            positions.addVehicleToPlatoon(id, vehicleInfo);
+            info.speed = automated.speed;
+            info.lane = automated.lane;
+            positions.setPlatoonInformation(vehicleInfo.platoonId, info);
+        }
 
 }
 

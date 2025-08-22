@@ -170,6 +170,7 @@ void TraCIBaseTrafficManager::loadSumoScenario()
 void TraCIBaseTrafficManager::insertVehicles()
 {
     // insert the vehicles in the queue
+
     for (InsertQueue::iterator i = vehicleInsertQueue.begin(); i != vehicleInsertQueue.end(); ++i) {
         std::string route = routeIds[i->first];
         EV << "process " << route << std::endl;
