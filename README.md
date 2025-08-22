@@ -51,7 +51,8 @@ Finally, simply type
 ```
 make
 ```
-Plexe
+
+## Plexe
 
 Evey simulation example is included within this branch of Plexe (starting from version 3.1.3). Clone it using this link and be sure to choose the plexe-cooperis-work branch:
 ```
@@ -65,6 +66,8 @@ Then simply compile Plexe as usual:
 make
 ```
 to build plexe.
+
+## Scenarios
 
 To start each scenario, proceed as following: 
 ```
