@@ -58,7 +58,7 @@ Evey simulation example is included within this branch of Plexe (starting from v
 ```
 git clone https://github.com/danielhng/plexe/
 cd plexe
-git checkout -b plexe-3.1.4-work plexe-3.1.4
+git checkout -b plexe-cooperis-work
 ```
 Then simply compile Plexe as usual:
 ```
@@ -69,18 +69,23 @@ to build plexe.
 
 ## Scenarios
 
-To start each scenario, proceed as following: 
+To be able to run the scenarios, start with: 
 ```
 cd plexe/subprojects/plexe_cooperis
 source setenv
 ./configure
 make
 ```
+
+!!! Please make sure to have ran ```source setenv``` in the omnetpp directory before, since plexe is based on opp_makemake !!!
+
 Then run each example with:
+
 ```
 cd examples/plexe_cooperis
 plexe_cooperis_run -u Qtenv -c MaliciousRIS -r 0 
 ```
+
 You can replace "MaliciousRIS" with every scenario defined in the omnetpp.ini file, i.e. 
 
 ### MaliciousRIS
@@ -89,10 +94,12 @@ For a redirection scenario from the RIS, the RIS will direct the beam towards th
 
 ### SideLobe
 
+Run with: ```plexe_cooperis_run -u Qtenv -c SideLobe -r 0``` 
 This scenario tries to implement an attacker situated on the SideLobe of the signal. In this setting the attacker located before the reception node is on the path of the RIS and should be able to intercept a certain amount of the signal
 
 ### Lawful Interception of traffic
 
+Run with: ```plexe_cooperis_run -u Qtenv -c LawfulInterception -r 0 ```
 The last scenario represents a RIS being used for lawful interception of traffic, redirecting everything to a passive listener which would be a dataserver or a proxy for logging.
 
 
