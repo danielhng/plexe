@@ -95,11 +95,13 @@ For a redirection scenario from the RIS, the RIS will direct the beam towards th
 ### SideLobe
 
 Run with: ```plexe_cooperis_run -u Qtenv -c SideLobe -r 0``` 
+
 This scenario tries to implement an attacker situated on the SideLobe of the signal. In this setting the attacker located before the reception node is on the path of the RIS and should be able to intercept a certain amount of the signal
 
 ### Lawful Interception of traffic
 
 Run with: ```plexe_cooperis_run -u Qtenv -c LawfulInterception -r 0 ```
+
 The last scenario represents a RIS being used for lawful interception of traffic, redirecting everything to a passive listener which would be a dataserver or a proxy for logging.
 
 
