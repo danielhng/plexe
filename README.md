@@ -1,13 +1,13 @@
 # Cooperis Simulation Work
 
-This repository proposes three simulation based on the plexe cooperis framemwork, integrating a RIS into different security relevant scenarios. Each Simulation adresses a different point of RIS security, with stress points on signal control (Side Lobe eavesdropping), Machine in the Middle attack, Redirection of signal and Lawful Interception.
+This repository proposes three simulation based on the plexe cooperis framemwork, integrating a RIS into different security relevant scenarios. Each Simulation adresses a different point of RIS security, with emphasis on signal control (Side Lobe eavesdropping), Machine in the Middle attack, Redirection of signal and Lawful Interception.
 
 Note
 
 Each Simulation is not entirely finished and needs improvement for concrete usage and data gathering.
 
-The simulation work depends on the plexe software ecosystem, by Michele Segat, as well as on the CoopeRIS framework to be able to integrate a RIS, you will need SUMO, OMNeT++, Veins, CoopeRIS and this fork of plexe. 
-For OMNeT++, please install version 6.0.1, whereas for SUMO, verison 1.18.0.
+The simulation work depends on the plexe software ecosystem, by Michele Segata, as well as on the CoopeRIS framework to be able to integrate a RIS, you will need SUMO, OMNeT++, Veins, CoopeRIS and this fork of plexe. 
+For OMNeT++, please install version 6.0.1, whereas for SUMO, verison 1.18.0. Please make sure to install the correct versions or no simulation work will work! For omnetpp make sure to follow the installation instructions from the 6.0.1 specific instruction manual and not from the latest version manual, for SUMO, you can download the correct version with ```ip install eclipse-sumo==1.9.0``` and by indication the version you want form version 1.8.0 upwards (1.18.0 for this project). 
 
 You will also need to install the GNU scientific library. On a Ubuntu/Debian system, please install it with
 
@@ -23,20 +23,20 @@ brew install gsl
 
 ## Veins
 
-CooperRIS works on a customized version of Veins. Clone it using this link and be sure to choose the cooperis branch:
+CooperRIS works on a customized version of Veins. Clone it using this link: https://github.com/michele-segata/veins/tree/cooperis and be sure to choose the cooperis branch:
 ```
 git clone https://github.com/michele-segata/veins/tree/cooperis
 cd veins
 git checkout cooperis
 ```
-Then simply compile Veins as usual:
+Then simply compile Veins:
 ```
 ./configure
 make
 ```
 ## CoopeRIS (Multithread support, default)
 
-CoopeRIS can be built with multithread or GPU support to accelerate the computation of the RIS. By default, CoopeRIS is built with multithread support. First, clone the repository:
+CoopeRIS works with an independent GitHub. Clone it on this link: https://github.com/michele-segata/cooperis first:
 ```
 git clone https://github.com/michele-segata/cooperis
 cd cooperis
@@ -47,7 +47,7 @@ To build it, please configure it indicating the path to the GSL include and lib 
 ```
 Please make sure to change the GSL paths to match your owns.
 
-Finally, simply type
+Finally, type
 ```
 make
 ```
@@ -60,7 +60,7 @@ git clone https://github.com/danielhng/plexe/
 cd plexe
 git checkout -b plexe-cooperis-work
 ```
-Then simply compile Plexe as usual:
+Then simply compile Plexe:
 ```
 ./configure
 make
@@ -69,15 +69,13 @@ to build plexe.
 
 ## Scenarios
 
-To be able to run the scenarios, start with: 
+To be able to run the scenarios, start by running ```source setenv``` in your omnetpp directory, then: 
 ```
 cd plexe/subprojects/plexe_cooperis
 source setenv
 ./configure
 make
 ```
-
-!!! Please make sure to have ran ```source setenv``` in the omnetpp directory before, since plexe is based on opp_makemake !!!
 
 Then run each example with:
 
