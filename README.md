@@ -7,7 +7,7 @@ Note
 Each Simulation is not entirely finished and needs improvement for concrete usage and data gathering.
 
 The simulation work depends on the plexe software ecosystem, by Michele Segata, as well as on the CoopeRIS framework to be able to integrate a RIS, you will need SUMO, OMNeT++, Veins, CoopeRIS and this fork of plexe. 
-For OMNeT++, please install version 6.0.1, whereas for SUMO, verison 1.18.0. Please make sure to install the correct versions or no simulation work will work! For omnetpp make sure to follow the installation instructions from the 6.0.1 specific instruction manual and not from the latest version manual, for SUMO, you can download the correct version with ```ip install eclipse-sumo==1.9.0``` and by indication the version you want form version 1.8.0 upwards (1.18.0 for this project). 
+For OMNeT++, please install version 6.0.1, whereas for SUMO, verison 1.18.0. Please make sure to install the correct versions or no simulation work will work! For omnetpp make sure to follow the installation instructions from the 6.0.1 specific instruction manual and not from the latest version manual, for SUMO, you can download the correct version with ```pip install eclipse-sumo==1.9.0``` and by indication the version you want form version 1.8.0 upwards (1.18.0 for this project). 
 
 You will also need to install the GNU scientific library. On a Ubuntu/Debian system, please install it with
 
