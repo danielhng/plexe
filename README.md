@@ -90,11 +90,15 @@ You can replace "MaliciousRIS" with every scenario defined in the omnetpp.ini fi
 
 For a redirection scenario from the RIS, the RIS will direct the beam towards the first node until SimTime = 3. It will afterwards be considered as compromised by an external actor and redirect the signal towards the other node.
 
+Main downsides: the attack on the RIS is very abstract, the reception device for the RIS is simply modified in the code after 3 seconds of simulation time from the "legitimate" one to the "malicious" one in the files MitMConnectionManager and MitMRisConnectionManager. No real simulation of attack. It's binary, either you send to one or you send to the other.
+
 ### SideLobe
 
 Run with: ```plexe_cooperis_run -u Qtenv -c SideLobe -r 0``` 
 
 This scenario tries to implement an attacker situated on the SideLobe of the signal. In this setting the attacker located before the reception node is on the path of the RIS and should be able to intercept a certain amount of the signal
+
+Main downsides: the two nodes are both connected to the RIS, but the FocusBeamTo and DestinationNodeToTrack parameters of the RIS are modified to focus on the more distant node. The closer node should not be able to gather as much data, being on a side lobe, but it manages to send the exact same replies than the legitimate node, it seems that no difference is made by the parameter defining where the RIS should steer its signal.
 
 ### Lawful Interception of traffic
 
